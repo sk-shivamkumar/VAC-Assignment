@@ -1,0 +1,12 @@
+library(rvest) 
+library(dplyr)
+library(robotstxt)
+path = paths_allowed ("https://www.tennis.com/players-rankings/")
+link <-"https://www.tennis.com/players-rankings/"
+web <- read_html (link) 
+name <- web %>% html_nodes (".tc-players-rankings__players-item--last-name")%>% html_text()
+View (name)
+country<- web %>% html_nodes(".tc-players-rankings__players-item--country") %>% html_text()
+View(country)
+tennis.rankings <- data.frame(name,country)
+write.csv (tennis.rankings, "My tennis.csv")
